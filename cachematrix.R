@@ -8,7 +8,6 @@
 ##     > a <- matrix(1:4, nrow = 2, ncol = 2)
 ##     > m <- makeCacheMatrix(a) # create enhanced matrix
 ##     > m$get()                 # get the matrix data underlying m
-##     > m$get()
 ##          [,1] [,2]
 ##     [1,]    1    3
 ##     [2,]    2    4
@@ -16,7 +15,7 @@
 ##          [,1] [,2]
 ##     [1,]   -2  1.5
 ##     [2,]    1 -0.5
-##     > cacheSolve(m)           # do again, not use of cache message
+##     > cacheSolve(m)           # do again, note use of cache message
 ##     getting cached data
 ##          [,1] [,2]
 ##     [1,]   -2  1.5
@@ -65,8 +64,9 @@ makeCacheMatrix <- function(x = matrix()) {
 	## This method needed for internal use by the cacheSolve function.
 	getInverse <- function() inv
 
-	## function to return the "matrix", i.e. a list that exposes the set of 4 functions
-	## that define the interface for client code to make use of this enhanced matrix
+	## Create the return value of this function, an enhanced "matrix",
+	## i.e. a list that exposes the set of 4 functions that define the
+	## interface for client code to make use of this enhanced matrix
 	list(set = set, get = get,
 		 setInverse = setInverse,
 		 getInverse = getInverse)
@@ -87,6 +87,6 @@ cacheSolve <- function(x, ...) {
 		inv <- solve(data, ...)
 		x$setInverse(inv)
 	} 
-    ## Return a matrix that is the inverse of 'x'
+	## Return a matrix that is the inverse of 'x'
 	inv
 }
